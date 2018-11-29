@@ -6,7 +6,7 @@ const Answer = (props) => {
       <div className="card text-center">
         <div>
           {props.selectedNumbers.map((number, i) =>
-            <span key={i}>{number}</span>
+            <span onClick={() => props.removeSelected(number)} key={i}>{number}</span>
           )}
         </div>
       </div>
