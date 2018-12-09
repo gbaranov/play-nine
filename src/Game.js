@@ -7,7 +7,8 @@ import Numbers from './Numbers.js';
 class Game extends Component {
   state = {
     selectedNumbers: [],
-    numberOfStars: 1 + Math.floor(Math.random()*9)
+    numberOfStars: 1 + Math.floor(Math.random()*9),
+    answerIsCorrect: null
   };
 
   selectNumber = (clickedNumber) => {
@@ -15,12 +16,19 @@ class Game extends Component {
     this.setState(prevState => ({
       selectedNumbers: prevState.selectedNumbers.concat(clickedNumber)
     }))
-  }
+  };
   removeSelected = (clickedNumber) => {
     this.setState(prevState => ({
       selectedNumbers: prevState.selectedNumbers.filter(number => number !== clickedNumber)
     }));
+  };
+  checkAnswer = () => {
+    this.setState(prevState => ({
+      answerIsCorrect: prevState.randomNumberOfStars ===
+        prevState.selectedNumbers.reduce((acc, n) => acc + n, 0)
+    }));
   }
+
   render() {
     const {selectedNumbers, numberOfStars} = this.state;
     return (
@@ -29,7 +37,9 @@ class Game extends Component {
         <hr />
         <div className="row">
           <Stars numberOfStars={numberOfStars}/>
-          <Button selectedNumbers={selectedNumbers}/>
+          <Button selectedNumbers={selectedNumbers}
+                  checkAnswer={this.checkAnswer}
+                  answerIsCorrect={this.answerIsCorrect}/>
           <Answer selectedNumbers={selectedNumbers}
                   removeSelected={this.removeSelected}/>
         </div>
