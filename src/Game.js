@@ -21,6 +21,7 @@ class Game extends Component {
     this.setState(prevState => ({
       selectedNumbers: prevState.selectedNumbers.filter(number => number !== clickedNumber)
     }));
+    
   };
   checkAnswer = () => {
     this.setState(prevState => ({
